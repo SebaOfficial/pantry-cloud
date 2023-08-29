@@ -1,0 +1,32 @@
+{
+    "name": "seba/pantry",
+    "description": "SDK for getpantry.cloud",
+    "type": "library",
+    "keywords": [
+        "library",
+        "pantry",
+        "pantry-cloud",
+        "json",
+        "database",
+        "db"
+    ],
+    "homepage": "https://github.com/SebaOfficial/pantry-cloud",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Pantry\\": "src/",
+            "Pantry\\Exceptions\\": "src/Exceptions/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sebastiano",
+            "email": "sebastiano@racca.me",
+            "role": "Developer",
+            "homepage": "https://github.com/SebaOfficial"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.7"
+    }
+}
