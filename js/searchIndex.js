@@ -41,15 +41,15 @@ Search.appendIndex(
             "summary": "Deletes\u0020the\u0020basket.",
             "url": "classes/Pantry-Basket.html#method_delete"
         },                {
-            "fqsen": "\\Pantry\\Basket\u003A\u003A\u0024data",
-            "name": "data",
-            "summary": "",
-            "url": "classes/Pantry-Basket.html#property_data"
-        },                {
             "fqsen": "\\Pantry\\Basket\u003A\u003A\u0024name",
             "name": "name",
             "summary": "",
             "url": "classes/Pantry-Basket.html#property_name"
+        },                {
+            "fqsen": "\\Pantry\\Basket\u003A\u003A\u0024data",
+            "name": "data",
+            "summary": "",
+            "url": "classes/Pantry-Basket.html#property_data"
         },                {
             "fqsen": "\\Pantry\\Client",
             "name": "Client",
@@ -111,16 +111,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Pantry-Client.html#constant_PANTRY_URL"
         },                {
-            "fqsen": "\\Pantry\\Client\u003A\u003A\u0024pantryID",
-            "name": "pantryID",
-            "summary": "",
-            "url": "classes/Pantry-Client.html#property_pantryID"
-        },                {
-            "fqsen": "\\Pantry\\Client\u003A\u003A\u0024async",
-            "name": "async",
-            "summary": "",
-            "url": "classes/Pantry-Client.html#property_async"
-        },                {
             "fqsen": "\\Pantry\\Client\u003A\u003A\u0024HttpClient",
             "name": "HttpClient",
             "summary": "",
@@ -130,6 +120,16 @@ Search.appendIndex(
             "name": "data",
             "summary": "",
             "url": "classes/Pantry-Client.html#property_data"
+        },                {
+            "fqsen": "\\Pantry\\Client\u003A\u003A\u0024pantryID",
+            "name": "pantryID",
+            "summary": "",
+            "url": "classes/Pantry-Client.html#property_pantryID"
+        },                {
+            "fqsen": "\\Pantry\\Client\u003A\u003A\u0024async",
+            "name": "async",
+            "summary": "",
+            "url": "classes/Pantry-Client.html#property_async"
         },                {
             "fqsen": "\\Pantry\\Exceptions\\BasketNotFoundException",
             "name": "BasketNotFoundException",
