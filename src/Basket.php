@@ -6,9 +6,6 @@ use Pantry\Exceptions\RequestException;
 
 class Basket extends Client
 {
-    private object $data;
-    private string $name;
-
     /**
      * Basket constructor.
      *
@@ -16,11 +13,12 @@ class Basket extends Client
      * @param string $name       The basket name.
      * @param object $data       The contents of the basket.
      */
-    public function __construct(string $pantryID, string $name, object $data)
-    {
+    public function __construct(
+        string $pantryID,
+        private string $name,
+        private object $data
+    ) {
         parent::__construct($pantryID);
-        $this->data = $data;
-        $this->name = $name;
     }
 
     /**
