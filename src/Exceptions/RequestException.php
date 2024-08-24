@@ -2,4 +2,6 @@
 
 namespace Pantry\Exceptions;
 
-class RequestException extends PantryException {}
+class RequestException extends PantryException
+{
+}

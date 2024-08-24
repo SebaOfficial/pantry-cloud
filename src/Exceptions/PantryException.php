@@ -2,4 +2,6 @@
 
 namespace Pantry\Exceptions;
 
-class PantryException extends \Exception {}
+class PantryException extends \Exception
+{
+}

@@ -2,4 +2,6 @@
 
 namespace Pantry\Exceptions;
 
-class BasketNotFoundException extends PantryException {}
+class BasketNotFoundException extends PantryException
+{
+}
