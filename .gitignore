@@ -1,2 +1,5 @@
 vendor/
 .php-cs-fixer.cache
+
+/docs/
+/.phpdoc/cache/
