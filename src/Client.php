@@ -7,8 +7,6 @@ use Pantry\Exceptions\RequestException;
 
 class Client
 {
-    private string $pantryID;
-    private bool $async;
     private \GuzzleHttp\Client $HttpClient;
     private ?object $data;
     public const PANTRY_URL = 'https://getpantry.cloud/apiv1/pantry/';
@@ -19,10 +17,10 @@ class Client
      * @param string $pantryID   The Pantry ID used to access your dashboard.
      * @param bool $async        Wheter the request should be asyncronous or not.
      */
-    public function __construct(string $pantryID, bool $async = false)
-    {
-        $this->pantryID = $pantryID;
-        $this->async = $async;
+    public function __construct(
+        private string $pantryID,
+        private bool $async = false
+    ) {
         $this->HttpClient = new \GuzzleHttp\Client();
         $this->data = null;
     }
@@ -35,7 +33,7 @@ class Client
      * @param array|null $body      The body of the request.
      * @param array|null $headers   Additional headers.
      *
-     * @return ?object              The bod of the response.
+     * @return ?object              The body of the response.
      */
     protected function request(
         string $method = "GET",
