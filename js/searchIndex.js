@@ -146,6 +146,21 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Pantry-Exceptions-RequestException.html"
         },                {
+            "fqsen": "\\Pantry\\Exceptions\\RequestException\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/Pantry-Exceptions-RequestException.html#method___construct"
+        },                {
+            "fqsen": "\\Pantry\\Exceptions\\RequestException\u003A\u003AgetHttpCode\u0028\u0029",
+            "name": "getHttpCode",
+            "summary": "",
+            "url": "classes/Pantry-Exceptions-RequestException.html#method_getHttpCode"
+        },                {
+            "fqsen": "\\Pantry\\Exceptions\\RequestException\u003A\u003A\u0024httpCode",
+            "name": "httpCode",
+            "summary": "",
+            "url": "classes/Pantry-Exceptions-RequestException.html#property_httpCode"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
