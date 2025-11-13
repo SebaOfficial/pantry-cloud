@@ -2,6 +2,7 @@
 
 namespace Pantry;
 
+use GuzzleHttp\Exception\ClientException;
 use Pantry\Exceptions\BasketNotFoundException;
 use Pantry\Exceptions\RequestException;
 
@@ -34,6 +35,8 @@ class Client
      * @param array|null $headers   Additional headers.
      *
      * @return ?object              The body of the response.
+     *
+     * @throws RequestException     On a ClientException.
      */
     protected function request(
         string $method = "GET",
@@ -53,9 +56,12 @@ class Client
             ) : null
         );
 
-        $res = $this->async ? $this->HttpClient->sendAsync($request)->wait() : $this->HttpClient->send($request);
-
-        return json_decode($res->getBody()->getContents());
+        try {
+            $res = $this->async ? $this->HttpClient->sendAsync($request)->wait() : $this->HttpClient->send($request);
+            return json_decode($res->getBody()->getContents());
+        } catch (ClientException $e) {
+            throw new RequestException($e->getMessage(), $e->getResponse()->getStatusCode(), 0, $e);
+        }
     }
 
     /**
@@ -65,7 +71,7 @@ class Client
      */
     public function getData(): object
     {
-        if($this->data === null) {
+        if ($this->data === null) {
             $this->data = $this->request();
         }
         return $this->data;
@@ -121,11 +127,9 @@ class Client
     public function update(array $data): void
     {
         try {
-
             $this->request("PUT", "", $data);
-
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
-            throw new RequestException("An error occurred while updating the pantry.", 0, $e);
+        } catch (ClientException $e) {
+            throw new RequestException("An error occurred while updating the pantry.", $e->getResponse()->getStatusCode(), 0, $e);
         }
     }
 
@@ -142,17 +146,15 @@ class Client
     public function getBasket(string $name): Basket
     {
         try {
-
             $response = $this->request("GET", "/basket/$name");
             return new Basket($this->pantryID, $name, $response);
-
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException $e) {
 
             if ($e->getResponse()->getStatusCode() === 400) {
                 throw new BasketNotFoundException("Basket '$name' not found.", 400, $e);
             }
 
-            throw new RequestException("An error occurred while fetching the basket.", 0, $e);
+            throw new RequestException("An error occurred while fetching the basket.", $e->getResponse()->getStatusCode(), 0, $e);
         }
     }
 
@@ -169,12 +171,10 @@ class Client
     public function createBasket(string $name, array $contents): Basket
     {
         try {
-
             $this->request("POST", "/basket/$name", $contents);
             return new Basket($this->pantryID, $name, (object)$contents);
-
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
-            throw new RequestException("An error occurred while creating the basket.", 0, $e);
+        } catch (ClientException $e) {
+            throw new RequestException("An error occurred while creating the basket.", $e->getResponse()->getStatusCode(), 0, $e);
         }
     }
 }
