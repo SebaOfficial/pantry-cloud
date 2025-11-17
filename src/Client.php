@@ -5,6 +5,7 @@ namespace Pantry;
 use GuzzleHttp\Exception\ClientException;
 use Pantry\Exceptions\BasketNotFoundException;
 use Pantry\Exceptions\RequestException;
+use TypeError;
 
 class Client
 {
@@ -34,7 +35,7 @@ class Client
      * @param array|null $body      The body of the request.
      * @param array|null $headers   Additional headers.
      *
-     * @return ?object              The body of the response.
+     * @return object              The body of the response.
      *
      * @throws RequestException     On a ClientException.
      */
@@ -58,9 +59,14 @@ class Client
 
         try {
             $res = $this->async ? $this->HttpClient->sendAsync($request)->wait() : $this->HttpClient->send($request);
-            return json_decode($res->getBody()->getContents());
+            $data = $res->getBody()->getContents();
         } catch (ClientException $e) {
             throw new RequestException($e->getMessage(), $e->getResponse()->getStatusCode(), 0, $e);
+        }
+        try {
+            return json_decode($data);
+        } catch (TypeError $e) { // text responses
+            return (object)["response" => $data];
         }
     }
 
