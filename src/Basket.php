@@ -70,13 +70,8 @@ class Basket extends Client
      */
     public function update(array $data): void
     {
-        try {
-
-            $this->request("PUT", "/basket/$this->name", $data);
-            $this->data = (object)$data;
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
-            throw new RequestException("An error occurred while updating the basket.", 0, $e);
-        }
+        $this->request("PUT", "/basket/$this->name", $data);
+        $this->data = (object)$data;
     }
 
     /**
@@ -86,11 +81,6 @@ class Basket extends Client
      */
     public function delete(): object
     {
-        try {
-
-            return $this->request("DELETE", "/basket/$this->name");
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
-            throw new RequestException("An error occurred while deleting the basket.", 0, $e);
-        }
+        return $this->request("DELETE", "/basket/$this->name");
     }
 }
