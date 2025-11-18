@@ -63,11 +63,8 @@ class Client
         } catch (ClientException $e) {
             throw new RequestException($e->getMessage(), $e->getResponse()->getStatusCode(), 0, $e);
         }
-        try {
-            return json_decode($data);
-        } catch (TypeError $e) { // text responses
-            return (object)["response" => $data];
-        }
+        $output = json_decode($data);
+        return $output === null ? (object)["response" => $data] : $output;
     }
 
     /**
@@ -132,11 +129,7 @@ class Client
      */
     public function update(array $data): void
     {
-        try {
-            $this->request("PUT", "", $data);
-        } catch (ClientException $e) {
-            throw new RequestException("An error occurred while updating the pantry.", $e->getResponse()->getStatusCode(), 0, $e);
-        }
+       $this->request("PUT", "", $data);
     }
 
     /**
@@ -154,13 +147,13 @@ class Client
         try {
             $response = $this->request("GET", "/basket/$name");
             return new Basket($this->pantryID, $name, $response);
-        } catch (ClientException $e) {
+        } catch (RequestException $e) {
 
-            if ($e->getResponse()->getStatusCode() === 400) {
+            if ($e->getHttpCode() === 400) {
                 throw new BasketNotFoundException("Basket '$name' not found.", 400, $e);
             }
 
-            throw new RequestException("An error occurred while fetching the basket.", $e->getResponse()->getStatusCode(), 0, $e);
+            throw $e;
         }
     }
 
@@ -176,11 +169,7 @@ class Client
      */
     public function createBasket(string $name, array $contents): Basket
     {
-        try {
-            $this->request("POST", "/basket/$name", $contents);
-            return new Basket($this->pantryID, $name, (object)$contents);
-        } catch (ClientException $e) {
-            throw new RequestException("An error occurred while creating the basket.", $e->getResponse()->getStatusCode(), 0, $e);
-        }
+        $this->request("POST", "/basket/$name", $contents);
+        return new Basket($this->pantryID, $name, (object)$contents);
     }
 }
