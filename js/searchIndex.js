@@ -103,7 +103,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Pantry\\Client\u003A\u003AcreateBasket\u0028\u0029",
             "name": "createBasket",
-            "summary": "Creates\u0020a\u0020new\u0020basket.",
+            "summary": "Creates\u0020a\u0020new\u0020basket\u0020or\u0020replaces\u0020an\u0020existing\u0020one.",
             "url": "classes/Pantry-Client.html#method_createBasket"
         },                {
             "fqsen": "\\Pantry\\Client\u003A\u003APANTRY_URL",
