@@ -5,7 +5,6 @@ namespace Pantry;
 use GuzzleHttp\Exception\ClientException;
 use Pantry\Exceptions\BasketNotFoundException;
 use Pantry\Exceptions\RequestException;
-use TypeError;
 
 class Client
 {
@@ -61,10 +60,10 @@ class Client
             $res = $this->async ? $this->HttpClient->sendAsync($request)->wait() : $this->HttpClient->send($request);
             $data = $res->getBody()->getContents();
         } catch (ClientException $e) {
-            throw new RequestException($e->getMessage(), $e->getResponse()->getStatusCode(), 0, $e);
+            throw new RequestException($e->getMessage(), $e->getResponse()->getStatusCode(), 0);
         }
-        $output = json_decode($data);
-        return $output === null ? (object)["response" => $data] : $output;
+
+        return json_decode($data) ?? (object)["response" => $data];
     }
 
     /**
@@ -129,7 +128,7 @@ class Client
      */
     public function update(array $data): void
     {
-       $this->request("PUT", "", $data);
+        $this->request("PUT", "", $data);
     }
 
     /**
@@ -150,7 +149,7 @@ class Client
         } catch (RequestException $e) {
 
             if ($e->getHttpCode() === 400) {
-                throw new BasketNotFoundException("Basket '$name' not found.", 400, $e);
+                throw new BasketNotFoundException("Basket '$name' not found.", 400);
             }
 
             throw $e;
@@ -158,7 +157,7 @@ class Client
     }
 
     /**
-     * Creates a new basket.
+     * Creates a new basket or replaces an existing one.
      *
      * @param string $name               The name of the basket.
      * @param array $contents            The basket contents.
